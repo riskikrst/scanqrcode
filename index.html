@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main class="wrapper" style="padding:1em">
+    <section class="container" id="demo-content">
+      <video id="video" width="300" height="300" style="border: 1px solid gray"></video>
+    </section>
+  </main>
+
+<script type="text/javascript" src="Zxing-scan.min.js"></script>
+<script type="text/javascript">
+  window.addEventListener('load', function () {
+    let selectedDeviceId;
+        const codeReader = new ZXing.BrowserMultiFormatReader();
+        console.log('ZXing code reader initialized');
+
+        codeReader.listVideoInputDevices().then((videoInputDevices) => {
+            selectedDeviceId = videoInputDevices[1].deviceId; //1 kamera belakang ; 0 kamera depan
+            
+            
+                codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+                    if (result) {
+                        console.log(result);
+                        window.location.href = result.text;
+                        target = "_blank"
+                        // document.getElementById('result').textContent = result.text
+                    }
+                    if (err && !(err instanceof ZXing.NotFoundException)) {
+                        console.error(err)
+                        document.getElementById('result').textContent = err
+                    }
+                });
+                console.log('Started continous decode from camera with id ${selectedDeviceId}')
+
+            document.getElementById('btnCloseModal').addEventListener('click', () => {
+                codeReader.reset()
+                document.getElementById('result').textContent = '';
+                console.log('Reset.')
+            })
+
+        }).catch((err) => {
+            console.error(err)
+        })
+  });
+</script>
+</body>
+</html>
