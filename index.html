@@ -3,15 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>SCAN</title>
+  <style>
+    body {
+      margin : 1cm;
+      font-family : arial black;
+      background-color: cadetblue;
+    }
+    h3 {
+      margin : 0;
+      color: aliceblue;
+    }
+    .frame {
+      text-align : center;
+    }
+    video {
+      width : 530px;
+      height : 400px;
+      border: 5px solid whitesmoke;
+      border-radius: 20px;
+    }
+  </style>
 </head>
 <body>
-  <main class="wrapper" style="padding:1em">
-    <h1>Scan Qr Code</h1>
-    <section class="container" id="demo-content">
-      <video id="video" width="300" height="300" style="border: 1px solid gray"></video>
-    </section>
-  </main>
+
+  <div class="frame">
+    <div><h3>Scan Barcode</h3></div>
+    <video id="video" allowfullscreen></video>
+  </div>
 
 <script type="text/javascript" src="Zxing-scan.min.js"></script>
 <script type="text/javascript">
@@ -24,12 +43,10 @@
             // selectedDeviceId = videoInputDevices[1].deviceId; //1 kamera belakang ; 0 kamera depan
             selectedDeviceId = undefined; //1 kamera belakang ; 0 kamera depan
             
-            
                 codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
                     if (result) {
                         console.log(result);
                         window.location.href = result.text;
-                        target = "_blank";
                         // document.getElementById('result').textContent = result.text
                     }
                     if (err && !(err instanceof ZXing.NotFoundException)) {
