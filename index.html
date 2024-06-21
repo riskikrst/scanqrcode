@@ -21,7 +21,8 @@
         console.log('ZXing code reader initialized');
 
         codeReader.listVideoInputDevices().then((videoInputDevices) => {
-            selectedDeviceId = videoInputDevices[1].deviceId; //1 kamera belakang ; 0 kamera depan
+            // selectedDeviceId = videoInputDevices[1].deviceId; //1 kamera belakang ; 0 kamera depan
+            selectedDeviceId = undefined; //1 kamera belakang ; 0 kamera depan
             
             
                 codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
